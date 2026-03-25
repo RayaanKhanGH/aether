@@ -154,7 +154,7 @@ export default function FleetPage() {
       <Navigation />
       
       {/* Global Filter Bar */}
-      <div className="sticky top-[73px] bg-pure-white z-40 border-b border-slate-gray/10 shadow-sm transition-all">
+      <div className="sticky top-[73px] bg-pure-white/95 backdrop-blur-md z-40 border-b border-slate-gray/10 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col lg:flex-row gap-4 items-center justify-between">
           
           {/* Search Box */}
@@ -213,7 +213,7 @@ export default function FleetPage() {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              className="overflow-hidden bg-alabaster border-t border-slate-gray/10"
+              className="absolute top-full left-0 w-full overflow-hidden bg-alabaster/95 backdrop-blur-md border-b border-slate-gray/10 shadow-lg"
             >
               <div className="max-w-7xl mx-auto px-6 py-5">
                 <div className="flex items-center justify-between mb-3">
