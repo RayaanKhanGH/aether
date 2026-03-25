@@ -12,10 +12,6 @@
 }
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
-
   body {
     background-color: var(--color-pure-white);
     color: var(--color-obsidian);
