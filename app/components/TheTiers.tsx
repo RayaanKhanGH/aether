@@ -30,7 +30,7 @@ export default function TheTiers() {
   ];
 
   return (
-    <section className="py-16 md:py-28 bg-pure-white px-5 sm:px-6">
+    <section className="relative py-16 md:py-28 bg-pure-white px-5 sm:px-6">
       <div className="max-w-7xl mx-auto">
         <motion.div 
           className="mb-10 md:mb-16 flex flex-col md:flex-row justify-between items-start md:items-end gap-4 md:gap-6"

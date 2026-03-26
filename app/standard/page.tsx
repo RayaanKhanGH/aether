@@ -59,7 +59,7 @@ export default function StandardPage() {
       <Navigation />
       
       {/* Header Section (No Image) */}
-      <section className="px-5 sm:px-6 py-16 sm:py-20 md:py-32 bg-obsidian text-pure-white border-b border-white/5">
+      <section className="relative px-5 sm:px-6 py-16 sm:py-20 md:py-32 bg-obsidian text-pure-white border-b border-white/5">
         <div className="max-w-4xl mx-auto text-center">
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -92,7 +92,7 @@ export default function StandardPage() {
       <div className="h-px bg-gradient-to-r from-transparent via-champagne-gold/40 to-transparent" />
 
       {/* Grid Section */}
-      <section className="px-5 sm:px-6 py-16 sm:py-24 md:py-32 max-w-7xl mx-auto w-full">
+      <section className="relative px-5 sm:px-6 py-16 sm:py-24 md:py-32 max-w-7xl mx-auto w-full">
         <motion.div 
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 lg:gap-16"
           variants={containerVariants}
@@ -119,7 +119,7 @@ export default function StandardPage() {
       </section>
 
       {/* Bottom Quote Section */}
-      <section className="px-5 sm:px-6 py-16 sm:py-24 bg-alabaster border-y border-slate-gray/10">
+      <section className="relative px-5 sm:px-6 py-16 sm:py-24 bg-alabaster border-y border-slate-gray/10">
         <motion.div 
           className="max-w-4xl mx-auto text-center"
           initial={{ opacity: 0, y: 20 }}

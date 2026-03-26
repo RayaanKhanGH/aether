@@ -4,6 +4,7 @@ import { useState, useMemo, useEffect } from "react";
 import Navigation from "../components/Navigation";
 import { Search, SlidersHorizontal, ChevronDown, CheckCircle, MapPin, X, ArrowRight, Zap } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { VEHICLES } from "../data/vehicles";
 
 type Vehicle = {
   id: string;
@@ -16,41 +17,12 @@ type Vehicle = {
   transmission: string;
   fuel: string;
   desc: string;
+  availability: number;
   specs: { horsepower: string; acceleration: string; topSpeed: string };
 };
 
-const VEHICLES: Vehicle[] = [
-  {"id":"v1","name":"Mercedes-Benz SLS AMG","tier":"Elite","specialty":"Sports","location":"Miami","price":1284,"seats":2,"transmission":"Automatic","fuel":"Petrol","desc":"Gullwing doors and a roaring V8 define this modern classic.","specs":{"horsepower":"563 hp","acceleration":"3.7s","topSpeed":"197 mph"}},
-  {"id":"v2","name":"Range Rover Autobiography","tier":"Executive","specialty":"SUV","location":"Miami","price":594,"seats":5,"transmission":"Automatic","fuel":"Petrol","desc":"Command the road with ultimate British luxury and capability.","specs":{"horsepower":"523 hp","acceleration":"4.4s","topSpeed":"155 mph"}},
-  {"id":"v3","name":"Lamborghini Huracán EVO","tier":"Elite","specialty":"Hypercar","location":"Miami","price":1635,"seats":2,"transmission":"Automatic","fuel":"Petrol","desc":"A naturally aspirated V10 screaming masterpiece.","specs":{"horsepower":"631 hp","acceleration":"2.9s","topSpeed":"202 mph"}},
-  {"id":"v4","name":"Honda Accord Touring","tier":"Budget","specialty":"Sedan","location":"Miami","price":81,"seats":5,"transmission":"Automatic","fuel":"Petrol","desc":"Spacious, responsive, and incredibly practical.","specs":{"horsepower":"252 hp","acceleration":"5.7s","topSpeed":"130 mph"}},
-  {"id":"v5","name":"Lexus RX 350","tier":"Economy+","specialty":"SUV","location":"Miami","price":164,"seats":5,"transmission":"Automatic","fuel":"Petrol","desc":"Smooth, quiet, and reliable daily luxury.","specs":{"horsepower":"295 hp","acceleration":"7.2s","topSpeed":"124 mph"}},
-  {"id":"v6","name":"Audi e-tron GT","tier":"Premium","specialty":"Electric","location":"Miami","price":322,"seats":4,"transmission":"Automatic","fuel":"Electric","desc":"Sleek, aerodynamic, and shockingly fast electric grand tourer.","specs":{"horsepower":"522 hp","acceleration":"3.9s","topSpeed":"152 mph"}},
-  {"id":"v7","name":"Ferrari F8 Tributo","tier":"Elite","specialty":"Hypercar","location":"Miami","price":1767,"seats":2,"transmission":"Automatic","fuel":"Petrol","desc":"The ultimate expression of the legendary Ferrari V8.","specs":{"horsepower":"710 hp","acceleration":"2.8s","topSpeed":"211 mph"}},
-  {"id":"v8","name":"Rolls-Royce Cullinan","tier":"Elite","specialty":"SUV","location":"Miami","price":2100,"seats":5,"transmission":"Automatic","fuel":"Petrol","desc":"The absolute pinnacle of luxury SUVs. Effortless everywhere.","specs":{"horsepower":"563 hp","acceleration":"4.5s","topSpeed":"155 mph"}},
-  {"id":"v9","name":"Bentley Continental GT","tier":"Elite","specialty":"Sports","location":"Monaco","price":1450,"seats":4,"transmission":"Automatic","fuel":"Petrol","desc":"Grand touring perfection. Unmatched elegance and power.","specs":{"horsepower":"626 hp","acceleration":"3.6s","topSpeed":"207 mph"}},
-  {"id":"v10","name":"Aston Martin DB11","tier":"Elite","specialty":"Sports","location":"Monaco","price":1200,"seats":4,"transmission":"Automatic","fuel":"Petrol","desc":"The definitive grand tourer. Beauty meets beast.","specs":{"horsepower":"630 hp","acceleration":"3.7s","topSpeed":"208 mph"}},
-  {"id":"v11","name":"Porsche Taycan Turbo S","tier":"Elite","specialty":"Electric","location":"Dubai","price":850,"seats":4,"transmission":"Automatic","fuel":"Electric","desc":"Electric performance soul. The future of the sports car.","specs":{"horsepower":"750 hp","acceleration":"2.6s","topSpeed":"161 mph"}},
-  {"id":"v12","name":"McLaren 720S","tier":"Elite","specialty":"Hypercar","location":"Dubai","price":1950,"seats":2,"transmission":"Automatic","fuel":"Petrol","desc":"A supercar that pushes boundaries. Light, fast, beautiful.","specs":{"horsepower":"710 hp","acceleration":"2.8s","topSpeed":"212 mph"}},
-  {"id":"v13","name":"Bugatti Chiron","tier":"Elite","specialty":"Hypercar","location":"Dubai","price":8500,"seats":2,"transmission":"Automatic","fuel":"Petrol","desc":"The world's most powerful, fastest, and most exclusive production super sports car.","specs":{"horsepower":"1479 hp","acceleration":"2.4s","topSpeed":"261 mph"}},
-  {"id":"v14","name":"Mercedes-Maybach S-Class","tier":"Executive","specialty":"Sedan","location":"London","price":950,"seats":4,"transmission":"Automatic","fuel":"Petrol","desc":"Ultimate sophistication. A private sanctuary on wheels.","specs":{"horsepower":"496 hp","acceleration":"4.7s","topSpeed":"155 mph"}},
-  {"id":"v15","name":"Cadillac Escalade-V","tier":"Executive","specialty":"SUV","location":"New York","price":750,"seats":7,"transmission":"Automatic","fuel":"Petrol","desc":"Bold presence. The most powerful full-size SUV in its class.","specs":{"horsepower":"682 hp","acceleration":"4.4s","topSpeed":"125 mph"}},
-  {"id":"v16","name":"Rivian R1S","tier":"Premium","specialty":"Electric","location":"Los Angeles","price":450,"seats":7,"transmission":"Automatic","fuel":"Electric","desc":"Adventure-ready luxury electric SUV with incredible utility.","specs":{"horsepower":"835 hp","acceleration":"3.0s","topSpeed":"125 mph"}},
-  {"id":"v17","name":"Ferrari Roma","tier":"Elite","specialty":"Sports","location":"Paris","price":1350,"seats":4,"transmission":"Automatic","fuel":"Petrol","desc":"La Nuova Dolce Vita. Timeless design meets modern performance.","specs":{"horsepower":"612 hp","acceleration":"3.4s","topSpeed":"199 mph"}},
-  {"id":"v18","name":"Lamborghini Urus","tier":"Elite","specialty":"SUV","location":"New York","price":1550,"seats":5,"transmission":"Automatic","fuel":"Petrol","desc":"The soul of a super sports car and the functionality of an SUV.","specs":{"horsepower":"641 hp","acceleration":"3.6s","topSpeed":"190 mph"}},
-  {"id":"v19","name":"BMW M8 Competition","tier":"Executive","specialty":"Sports","location":"Tokyo","price":850,"seats":4,"transmission":"Automatic","fuel":"Petrol","desc":"The M definition of luxury. Uncompromising track-ready power.","specs":{"horsepower":"617 hp","acceleration":"3.0s","topSpeed":"190 mph"}},
-  {"id":"v20","name":"Audi RS6 Avant","tier":"Premium","specialty":"SUV","location":"Paris","price":650,"seats":5,"transmission":"Automatic","fuel":"Petrol","desc":"The ultimate sleeper. Supercar performance in a wagon body.","specs":{"horsepower":"591 hp","acceleration":"3.5s","topSpeed":"190 mph"}},
-  {"id":"v21","name":"Tesla Model S Plaid","tier":"Premium","specialty":"Electric","location":"Los Angeles","price":400,"seats":5,"transmission":"Automatic","fuel":"Electric","desc":"Beyond Ludicrous. The quickest accelerating car in production.","specs":{"horsepower":"1020 hp","acceleration":"1.99s","topSpeed":"200 mph"}},
-  {"id":"v22","name":"Land Rover Defender 110","tier":"Premium","specialty":"SUV","location":"London","price":350,"seats":5,"transmission":"Automatic","fuel":"Petrol","desc":"Capable of great things. Modern robustness meets classic lineage.","specs":{"horsepower":"395 hp","acceleration":"5.8s","topSpeed":"119 mph"}},
-  {"id":"v23","name":"Maserati MC20","tier":"Elite","specialty":"Hypercar","location":"Singapore","price":1850,"seats":2,"transmission":"Automatic","fuel":"Petrol","desc":"The first of its kind. A new era for the Trident.","specs":{"horsepower":"621 hp","acceleration":"2.9s","topSpeed":"202 mph"}},
-  {"id":"v24","name":"Lucid Air Sapphire","tier":"Elite","specialty":"Electric","location":"San Francisco","price":950,"seats":5,"transmission":"Automatic","fuel":"Electric","desc":"The world's first luxury electric super-sports sedan.","specs":{"horsepower":"1234 hp","acceleration":"1.89s","topSpeed":"205 mph"}},
-  {"id":"v25","name":"Range Rover Autobiography","tier":"Executive","specialty":"SUV","location":"Monaco","price":594,"seats":5,"transmission":"Automatic","fuel":"Petrol","desc":"Command the road with ultimate British luxury and capability.","specs":{"horsepower":"523 hp","acceleration":"4.4s","topSpeed":"155 mph"}},
-  {"id":"v26","name":"Ferrari F8 Tributo","tier":"Elite","specialty":"Hypercar","location":"Geneva","price":1850,"seats":2,"transmission":"Automatic","fuel":"Petrol","desc":"The ultimate expression of the legendary Ferrari V8.","specs":{"horsepower":"710 hp","acceleration":"2.8s","topSpeed":"211 mph"}},
-  {"id":"v27","name":"Mercedes-Benz SLS AMG","tier":"Elite","specialty":"Sports","location":"Los Angeles","price":1284,"seats":2,"transmission":"Automatic","fuel":"Petrol","desc":"Gullwing doors and a roaring V8 define this modern classic.","specs":{"horsepower":"563 hp","acceleration":"3.7s","topSpeed":"197 mph"}},
-];
-
 const TIERS = ["All", "Budget", "Economy", "Economy+", "Premium", "Executive", "Elite"];
-const LOCATIONS = ["All", "Miami", "Monaco", "Dubai", "Los Angeles", "London", "Paris", "New York", "Tokyo", "Geneva", "Singapore", "San Francisco"];
+const LOCATIONS = ["All", "Miami", "Monaco", "Dubai", "Los Angeles", "London", "Paris", "New York", "Tokyo", "Geneva", "Singapore", "San Francisco", "Bangkok"];
 const SPECIALTIES = ["All", "Electric", "Hybrid", "Petrol", "Sports", "SUV", "Sedan", "Hypercar"];
 const PRICES = ["All", "Under $500", "$500 - $1500", "Above $1500"];
 const SORT_OPTIONS = [
@@ -304,8 +276,13 @@ export default function FleetPage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                   
                   {/* Tier Badge */}
-                  <div className="absolute top-4 right-4 bg-pure-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-[10px] font-bold tracking-tighter text-obsidian shadow-sm border border-slate-gray/10">
+                  <div className="absolute top-4 left-4 bg-pure-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-[10px] font-bold tracking-tighter text-obsidian shadow-sm border border-slate-gray/10">
                     {vehicle.tier.toUpperCase()}
+                  </div>
+
+                  {/* Availability Badge */}
+                  <div className="absolute top-4 right-4 bg-obsidian text-pure-white px-2 py-1 rounded-sm text-[9px] font-technical tracking-widest uppercase">
+                    {vehicle.availability} AVAILABLE
                   </div>
                 </div>
                 
@@ -434,7 +411,7 @@ export default function FleetPage() {
                  
                  <div className="mt-auto pt-6 border-t border-slate-gray/20 flex flex-col sm:flex-row items-center justify-between gap-6">
                     <div className="text-center sm:text-left w-full sm:w-auto">
-                      <p className="text-xs font-technical text-slate-gray mb-1 uppercase tracking-wider">Daily Rate</p>
+                      <p className="text-xs font-technical text-slate-gray mb-1 uppercase tracking-wider">Daily Rate • {selectedVehicle.availability} In Stock</p>
                       <span className="text-3xl font-extrabold text-obsidian">${selectedVehicle.price}</span>
                     </div>
                     <button className="w-full sm:w-auto bg-obsidian text-pure-white px-8 py-4 rounded-md font-bold hover:bg-champagne-gold transition-colors flex items-center justify-center gap-2 hover-scale">
