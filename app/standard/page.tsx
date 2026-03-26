@@ -43,7 +43,7 @@ export default function StandardPage() {
       <Navigation />
       
       {/* Header Section (No Image) */}
-      <section className="px-6 py-20 md:py-32 bg-obsidian text-pure-white border-b border-white/5">
+      <section className="px-5 sm:px-6 py-16 sm:py-20 md:py-32 bg-obsidian text-pure-white border-b border-white/5">
         <div className="max-w-4xl mx-auto text-center">
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -57,7 +57,7 @@ export default function StandardPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-5xl md:text-7xl font-extrabold tracking-tight mb-8"
+            className="text-3xl sm:text-5xl md:text-7xl font-extrabold tracking-tight mb-6 sm:mb-8"
           >
             The Standard.
           </motion.h1>
@@ -73,8 +73,8 @@ export default function StandardPage() {
       </section>
 
       {/* Grid Section */}
-      <section className="px-6 py-24 md:py-32 max-w-7xl mx-auto w-full">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-16">
+      <section className="px-5 sm:px-6 py-16 sm:py-24 md:py-32 max-w-7xl mx-auto w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 lg:gap-16">
           {standards.map((item, index) => (
             <motion.div 
               key={index}
@@ -97,8 +97,8 @@ export default function StandardPage() {
       </section>
 
       {/* Bottom Quote Section */}
-      <section className="px-6 py-24 bg-alabaster border-y border-slate-gray/10">
-        <div className="max-w-4xl mx-auto text-center italic text-2xl md:text-3xl font-extrabold text-obsidian/80 leading-normal">
+      <section className="px-5 sm:px-6 py-16 sm:py-24 bg-alabaster border-y border-slate-gray/10">
+        <div className="max-w-4xl mx-auto text-center italic text-xl sm:text-2xl md:text-3xl font-extrabold text-obsidian/80 leading-normal">
           &quot;In the world of Aether, there is no room for compromise. Expectations are not merely met; they are redefined.&quot;
         </div>
       </section>

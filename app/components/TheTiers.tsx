@@ -12,9 +12,9 @@ export default function TheTiers() {
   ];
 
   return (
-    <section className="py-24 bg-pure-white px-6">
+    <section className="py-16 md:py-24 bg-pure-white px-5 sm:px-6">
       <div className="max-w-7xl mx-auto">
-        <div className="mb-16 flex flex-col md:flex-row justify-between items-end gap-6">
+        <div className="mb-10 md:mb-16 flex flex-col md:flex-row justify-between items-start md:items-end gap-4 md:gap-6">
           <div>
             <h2 className="text-sm text-slate-gray text-technical mb-3">THE COLLECTION</h2>
             <h3 className="text-4xl md:text-5xl font-bold tracking-tight">Vehicle Tiers</h3>
@@ -29,7 +29,7 @@ export default function TheTiers() {
             <Link 
               href={`/fleet?tier=${encodeURIComponent(tier.name)}`}
               key={idx} 
-              className={`p-10 rounded-xl flex flex-col justify-between h-64 group hover-scale cursor-pointer ${
+              className={`p-6 sm:p-8 md:p-10 rounded-xl flex flex-col justify-between h-48 sm:h-56 md:h-64 group hover-scale cursor-pointer ${
                 tier.style === "dark" 
                   ? "bg-obsidian text-pure-white border border-transparent hover:border-champagne-gold/30 shadow-xl" 
                   : "bg-alabaster text-obsidian border border-transparent hover:border-slate-gray/20 shadow-sm"

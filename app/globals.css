@@ -54,4 +54,18 @@
     transform: scale(1.02);
     box-shadow: 0 20px 40px -10px rgba(26, 27, 32, 0.12);
   }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .custom-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* Prevent 300ms tap delay on touch devices */
+button, a, input, select, textarea {
+  touch-action: manipulation;
 }

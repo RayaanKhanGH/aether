@@ -18,7 +18,7 @@ export default function HeroSection() {
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
   return (
-    <section ref={ref} className="relative h-screen w-full flex items-center pt-20 overflow-hidden bg-obsidian">
+    <section ref={ref} className="relative h-screen w-full flex items-center pt-16 sm:pt-20 overflow-hidden bg-obsidian">
       {/* Background Image Setup */}
       <motion.div 
         className="absolute inset-0 z-0 h-full w-full"
@@ -40,7 +40,7 @@ export default function HeroSection() {
         <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/20 to-transparent z-10" />
       </motion.div>
 
-      <div className="relative z-10 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto w-full">
+      <div className="relative z-10 px-5 sm:px-6 md:px-12 lg:px-24 max-w-7xl mx-auto w-full">
         <motion.p 
           className="text-champagne-gold font-technical tracking-widest mb-4"
           initial={{ opacity: 0, y: 20 }}
@@ -51,7 +51,7 @@ export default function HeroSection() {
         </motion.p>
         
         <motion.h1 
-          className="text-5xl md:text-7xl lg:text-8xl font-extrabold text-pure-white mb-6 tracking-tight leading-tight max-w-4xl"
+          className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold text-pure-white mb-4 sm:mb-6 tracking-tight leading-tight max-w-4xl"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}

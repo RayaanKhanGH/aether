@@ -155,7 +155,7 @@ export default function FleetPage() {
       
       {/* Global Filter Bar */}
       <div className="sticky top-[73px] bg-pure-white/95 backdrop-blur-md z-40 border-b border-slate-gray/10 shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col lg:flex-row gap-4 items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-col lg:flex-row gap-3 sm:gap-4 items-center justify-between">
           
           {/* Search Box */}
           <div className="relative w-full lg:w-96 group">
@@ -228,7 +228,7 @@ export default function FleetPage() {
       </div>
 
       {/* Fleet Grid */}
-      <section className="flex-grow max-w-7xl mx-auto px-6 py-12 w-full text-obsidian">
+      <section className="flex-grow max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12 w-full text-obsidian">
         <div className="flex justify-between items-end mb-10">
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight">The Gallery</h1>
           <p className="text-slate-gray font-technical text-sm hidden sm:block">SHOWING {filteredVehicles.length} VEHICLE{filteredVehicles.length !== 1 ? 'S' : ''}</p>
@@ -316,7 +316,7 @@ export default function FleetPage() {
       <AnimatePresence>
         {selectedVehicle && (
           <motion.div 
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8 cursor-pointer"
+            className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-4 md:p-8 cursor-pointer"
             onClick={() => setSelectedVehicle(null)}
           >
             {/* Backdrop */}
@@ -333,10 +333,10 @@ export default function FleetPage() {
               layoutId={`card-${selectedVehicle.id}`}
               transition={{ type: "spring", bounce: 0.1, duration: 0.5 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative bg-pure-white w-full max-w-6xl rounded-2xl shadow-2xl overflow-hidden cursor-auto flex flex-col md:flex-row h-[90vh] md:max-h-[85vh]"
+              className="relative bg-pure-white w-full max-w-6xl rounded-t-2xl sm:rounded-2xl shadow-2xl overflow-hidden cursor-auto flex flex-col md:flex-row h-[92vh] sm:h-[90vh] md:max-h-[85vh]"
             >
               {/* Left side: Hero Image */}
-              <div className="w-full md:w-[55%] h-64 md:h-full bg-alabaster flex items-center justify-center relative border-r border-slate-gray/10">
+              <div className="w-full md:w-[55%] h-48 sm:h-64 md:h-full bg-alabaster flex items-center justify-center relative border-b md:border-b-0 md:border-r border-slate-gray/10 shrink-0">
                  <span className="text-slate-gray/50 font-technical text-sm tracking-widest z-10">VEHICLE IMAGE PENDING</span>
                  <button 
                    className="absolute top-4 left-4 text-obsidian rounded-full bg-pure-white p-2 md:hidden shadow-md z-20" 
@@ -350,31 +350,31 @@ export default function FleetPage() {
               </div>
               
               {/* Right side: Information */}
-              <div className="w-full md:w-[45%] p-8 md:p-12 flex flex-col overflow-y-auto custom-scrollbar">
+              <div className="w-full md:w-[45%] p-5 sm:p-8 md:p-12 flex flex-col overflow-y-auto custom-scrollbar">
                  <div className="flex justify-between items-start mb-6">
                     <div>
                       <span className="text-champagne-gold font-technical text-xs tracking-widest uppercase mb-2 block">{selectedVehicle.tier} COLLECTION • {selectedVehicle.location}</span>
-                      <h2 className="text-3xl md:text-4xl font-extrabold text-obsidian tracking-tight leading-none">{selectedVehicle.name}</h2>
+                      <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-obsidian tracking-tight leading-none">{selectedVehicle.name}</h2>
                     </div>
                     <button className="hidden md:flex bg-alabaster p-2 rounded-full text-slate-gray hover:text-obsidian hover:bg-slate-gray/10 transition-colors" onClick={() => setSelectedVehicle(null)}>
                       <X size={24} />
                     </button>
                  </div>
                  
-                 <div className="flex gap-4 text-sm font-technical text-slate-gray uppercase tracking-wider mb-8 border-b border-slate-gray/20 pb-6">
+                 <div className="flex gap-3 sm:gap-4 text-xs sm:text-sm font-technical text-slate-gray uppercase tracking-wider mb-6 sm:mb-8 border-b border-slate-gray/20 pb-4 sm:pb-6">
                    <span>{selectedVehicle.seats} SEATS</span> •
                    <span>{selectedVehicle.tier}</span> •
                    <span>{selectedVehicle.fuel}</span>
                  </div>
                  
-                 <div className="mb-10">
+                 <div className="mb-6 sm:mb-10">
                    <h3 className="text-sm font-technical text-obsidian mb-3">OVERVIEW</h3>
                    <p className="text-slate-gray leading-relaxed text-lg">
                      {selectedVehicle.desc}
                    </p>
                  </div>
                  
-                 <div className="grid grid-cols-3 gap-4 mb-10 bg-alabaster rounded-xl p-6">
+                 <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-6 sm:mb-10 bg-alabaster rounded-xl p-4 sm:p-6">
                     <div className="flex flex-col">
                       <span className="text-[10px] font-technical text-slate-gray mb-1">HORSEPOWER</span>
                       <span className="text-lg font-bold text-obsidian">{selectedVehicle.specs.horsepower}</span>

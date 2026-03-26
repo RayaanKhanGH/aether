@@ -18,7 +18,7 @@ export default function HowItWorks() {
   ];
 
   return (
-    <section id="how-it-works" className="py-24 bg-alabaster text-obsidian px-6">
+    <section id="how-it-works" className="py-16 md:py-24 bg-alabaster text-obsidian px-5 sm:px-6">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div>
@@ -35,7 +35,7 @@ export default function HowItWorks() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative z-10">
             {steps.map((step, idx) => (
               <div key={idx} className="relative group">
-                <div className="w-24 h-24 rounded bg-pure-white shadow-sm flex items-center justify-center text-3xl font-bold text-champagne-gold mb-8 group-hover:-translate-y-2 transition-transform duration-300">
+                <div className="w-16 h-16 md:w-24 md:h-24 rounded bg-pure-white shadow-sm flex items-center justify-center text-2xl md:text-3xl font-bold text-champagne-gold mb-6 md:mb-8 group-hover:-translate-y-2 transition-transform duration-300">
                   {step.number}
                 </div>
                 <h4 className="text-2xl font-bold mb-4">{step.title}</h4>

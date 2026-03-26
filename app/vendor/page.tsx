@@ -25,7 +25,7 @@ export default function VendorPage() {
       <Navigation />
       
       {/* Vendor Hero Banner */}
-      <div ref={ref} className="w-full h-64 md:h-80 relative bg-obsidian flex items-center justify-center border-b border-slate-gray/20 overflow-hidden">
+      <div ref={ref} className="w-full h-48 sm:h-64 md:h-80 relative bg-obsidian flex items-center justify-center border-b border-slate-gray/20 overflow-hidden">
         <motion.div 
           className="absolute inset-0 bg-cover bg-center origin-top basis-full"
           style={{ 
@@ -36,14 +36,14 @@ export default function VendorPage() {
         >
           <div className="absolute inset-0 bg-obsidian/50 mix-blend-multiply" />
         </motion.div>
-        <h1 className="relative z-10 text-5xl md:text-7xl font-extrabold tracking-tight text-pure-white text-center">Partner Portal</h1>
+        <h1 className="relative z-10 text-3xl sm:text-5xl md:text-7xl font-extrabold tracking-tight text-pure-white text-center px-4">Partner Portal</h1>
       </div>
 
-      <section className="flex-grow max-w-7xl mx-auto px-6 py-16 md:py-24 w-full text-obsidian grid lg:grid-cols-2 gap-16">
+      <section className="flex-grow max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-16 md:py-24 w-full text-obsidian grid lg:grid-cols-2 gap-10 lg:gap-16">
         
         {/* The Proposition */}
         <div className="flex flex-col justify-center">
-          <h2 className="text-3xl font-bold text-obsidian mb-10 leading-snug">Access the most exclusive clientele in the world.</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-obsidian mb-8 sm:mb-10 leading-snug">Access the most exclusive clientele in the world.</h2>
           
           <div className="space-y-10">
             <div className="flex gap-5">
@@ -51,8 +51,8 @@ export default function VendorPage() {
                 <Building size={28} />
               </div>
               <div>
-                <h3 className="font-bold text-2xl mb-2 text-obsidian">Unmatched Prestige</h3>
-                <p className="text-slate-gray leading-relaxed text-lg">Listing your fleet on Aether associates your brand with the pinnacle of luxury, opening doors to an elite global audience.</p>
+                <h3 className="font-bold text-xl md:text-2xl mb-2 text-obsidian">Unmatched Prestige</h3>
+                <p className="text-slate-gray leading-relaxed text-base md:text-lg">Listing your fleet on Aether associates your brand with the pinnacle of luxury, opening doors to an elite global audience.</p>
               </div>
             </div>
             
@@ -61,8 +61,8 @@ export default function VendorPage() {
                 <Shield size={28} />
               </div>
               <div>
-                <h3 className="font-bold text-2xl mb-2 text-obsidian">Seamless Protection</h3>
-                <p className="text-slate-gray leading-relaxed text-lg">Direct API integrations for insurance verifications ensure absolute peace of mind for every curated journey.</p>
+                <h3 className="font-bold text-xl md:text-2xl mb-2 text-obsidian">Seamless Protection</h3>
+                <p className="text-slate-gray leading-relaxed text-base md:text-lg">Direct API integrations for insurance verifications ensure absolute peace of mind for every curated journey.</p>
               </div>
             </div>
 
@@ -71,8 +71,8 @@ export default function VendorPage() {
                 <Globe size={28} />
               </div>
               <div>
-                <h3 className="font-bold text-2xl mb-2 text-obsidian">Global Reach</h3>
-                <p className="text-slate-gray leading-relaxed text-lg">Gain exposure to over 50,000 monthly high-net-worth individuals across 120+ countries actively seeking premium rentals.</p>
+                <h3 className="font-bold text-xl md:text-2xl mb-2 text-obsidian">Global Reach</h3>
+                <p className="text-slate-gray leading-relaxed text-base md:text-lg">Gain exposure to over 50,000 monthly high-net-worth individuals across 120+ countries actively seeking premium rentals.</p>
               </div>
             </div>
           </div>

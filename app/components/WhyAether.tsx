@@ -20,7 +20,7 @@ export default function WhyAether() {
   ];
 
   return (
-    <section className="py-24 bg-pure-white text-obsidian px-6">
+    <section className="py-16 md:py-24 bg-pure-white text-obsidian px-5 sm:px-6">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-sm font-technical text-slate-gray mb-3 tracking-widest">THE AETHER DIFFERENCE</h2>

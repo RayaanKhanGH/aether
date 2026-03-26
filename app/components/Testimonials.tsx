@@ -18,7 +18,7 @@ export default function Testimonials() {
   ];
 
   return (
-    <section className="py-24 bg-alabaster px-6">
+    <section className="py-16 md:py-24 bg-alabaster px-5 sm:px-6">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-sm text-slate-gray mb-3 text-technical">VERIFIED STORIES</h2>
@@ -27,10 +27,10 @@ export default function Testimonials() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {testimonials.map((testim, idx) => (
-            <div key={idx} className="bg-obsidian rounded-xl p-10 flex flex-col justify-between hover-scale shadow-2xl">
+            <div key={idx} className="bg-obsidian rounded-xl p-6 sm:p-8 md:p-10 flex flex-col justify-between hover-scale shadow-2xl">
               <div>
                 <div className="text-champagne-gold text-5xl font-serif leading-none mb-4">"</div>
-                <p className="text-pure-white text-lg leading-relaxed mb-8 italic">
+                <p className="text-pure-white text-base md:text-lg leading-relaxed mb-6 md:mb-8 italic">
                   {testim.quote}
                 </p>
               </div>
