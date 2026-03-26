@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import clsx from "clsx";
 
 const NAV_LINKS = [
@@ -20,6 +20,10 @@ export default function Navigation() {
   const pathname = usePathname();
 
   const isHome = pathname === "/";
+
+  // Scroll progress
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,10 +52,10 @@ export default function Navigation() {
     <>
       <header
         className={clsx(
-          "fixed top-0 w-full z-50 transition-all duration-300 px-4 sm:px-6 py-4 border-b h-[73px]",
+          "fixed top-0 w-full z-50 transition-all duration-500 px-4 sm:px-6 py-4 border-b h-[73px]",
           isHome && !isScrolled && !mobileMenuOpen
             ? "bg-transparent border-transparent text-pure-white"
-            : "bg-pure-white border-slate-gray/10 shadow-md text-obsidian"
+            : "bg-pure-white/95 backdrop-blur-md border-slate-gray/10 text-obsidian"
         )}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between h-full">
@@ -62,13 +66,13 @@ export default function Navigation() {
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-10 text-xs font-technical uppercase tracking-widest">
             {NAV_LINKS.map((link) => (
-              <Link key={link.href} href={link.href} className="group relative">
+              <Link key={link.href} href={link.href} className="group relative py-1">
                 <span className={clsx(
-                  "hover:text-champagne-gold transition-colors",
+                  "hover:text-champagne-gold transition-colors duration-300",
                   pathname === link.href && "text-champagne-gold"
                 )}>{link.label}</span>
                 <span className={clsx(
-                  "absolute -bottom-2 left-0 h-[1px] bg-champagne-gold transition-all duration-300",
+                  "absolute -bottom-1 left-0 h-[1px] bg-champagne-gold transition-all duration-500 ease-out",
                   pathname === link.href ? "w-full" : "w-0 group-hover:w-full"
                 )}></span>
               </Link>
@@ -77,7 +81,7 @@ export default function Navigation() {
           
           {/* Desktop CTA */}
           <div className="hidden lg:block">
-            <Link href="/fleet" className="inline-block bg-obsidian text-pure-white px-7 py-2.5 rounded-sm text-sm font-technical tracking-widest uppercase hover:bg-champagne-gold hover:text-pure-white transition-all shadow hover:shadow-lg border border-transparent hover:border-champagne-gold">
+            <Link href="/fleet" className="inline-block bg-obsidian text-pure-white px-7 py-2.5 rounded-sm text-sm font-technical tracking-widest uppercase hover:bg-champagne-gold hover:text-pure-white transition-all duration-300 shadow hover:shadow-lg border border-transparent hover:border-champagne-gold">
               Book
             </Link>
           </div>
@@ -91,6 +95,12 @@ export default function Navigation() {
             {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
           </button>
         </div>
+
+        {/* Scroll Progress Bar */}
+        <motion.div
+          className="absolute bottom-0 left-0 right-0 h-[2px] bg-champagne-gold origin-left"
+          style={{ scaleX }}
+        />
       </header>
 
       {/* Mobile Menu Overlay */}
@@ -121,20 +131,26 @@ export default function Navigation() {
 
             <div className="flex-1 flex flex-col px-8 py-8 overflow-y-auto">
               <div className="space-y-1">
-                {NAV_LINKS.map((link) => (
-                  <Link
+                {NAV_LINKS.map((link, idx) => (
+                  <motion.div
                     key={link.href}
-                    href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={clsx(
-                      "block py-4 text-2xl font-bold tracking-tight transition-colors border-b border-slate-gray/10",
-                      pathname === link.href
-                        ? "text-champagne-gold"
-                        : "text-obsidian hover:text-champagne-gold"
-                    )}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 + idx * 0.05, duration: 0.3 }}
                   >
-                    {link.label}
-                  </Link>
+                    <Link
+                      href={link.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={clsx(
+                        "block py-4 text-2xl font-bold tracking-tight transition-colors border-b border-slate-gray/10",
+                        pathname === link.href
+                          ? "text-champagne-gold"
+                          : "text-obsidian hover:text-champagne-gold"
+                      )}
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
                 ))}
               </div>
 
@@ -142,7 +158,7 @@ export default function Navigation() {
                 <Link
                   href="/fleet"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block w-full text-center bg-obsidian text-pure-white py-4 rounded-md font-bold text-lg tracking-wider uppercase hover:bg-champagne-gold transition-colors"
+                  className="block w-full text-center bg-obsidian text-pure-white py-4 rounded-md font-bold text-lg tracking-wider uppercase hover:bg-champagne-gold transition-colors duration-300"
                 >
                   Book Now
                 </Link>

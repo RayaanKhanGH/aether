@@ -260,7 +260,7 @@ export default function FleetPage() {
                   visible: { opacity: 1, y: 0 }
                 }}
                 whileHover={{ y: -10 }}
-                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] as const }}
                 className="group cursor-pointer flex flex-col"
               >
                 {/* Image Placeholder */}

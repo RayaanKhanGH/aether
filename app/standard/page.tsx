@@ -3,6 +3,22 @@
 import Navigation from "../components/Navigation";
 import { ShieldCheck, Sparkles, Clock, MapPin, Award, UserCheck } from "lucide-react";
 import { motion } from "framer-motion";
+import Link from "next/link";
+
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.1, delayChildren: 0.1 }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { 
+    opacity: 1, y: 0,
+    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const }
+  }
+};
 
 export default function StandardPage() {
   const standards = [
@@ -48,15 +64,15 @@ export default function StandardPage() {
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-champagne-gold font-technical tracking-[0.3em] uppercase mb-6 text-sm"
+            transition={{ duration: 0.8 }}
+            className="text-shimmer font-technical tracking-[0.3em] uppercase mb-6 text-sm"
           >
             The Aether Protocol
           </motion.p>
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={{ duration: 0.8, delay: 0.15 }}
             className="text-3xl sm:text-5xl md:text-7xl font-extrabold tracking-tight mb-6 sm:mb-8"
           >
             The Standard.
@@ -64,7 +80,7 @@ export default function StandardPage() {
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
             className="text-slate-gray text-lg md:text-xl leading-relaxed font-light max-w-2xl mx-auto"
           >
             Luxury is not just the vehicle you drive—it is the precision, care, and silence that surrounds the experience.
@@ -72,19 +88,25 @@ export default function StandardPage() {
         </div>
       </section>
 
+      {/* Gold Divider */}
+      <div className="h-px bg-gradient-to-r from-transparent via-champagne-gold/40 to-transparent" />
+
       {/* Grid Section */}
       <section className="px-5 sm:px-6 py-16 sm:py-24 md:py-32 max-w-7xl mx-auto w-full">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 lg:gap-16">
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 lg:gap-16"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+        >
           {standards.map((item, index) => (
             <motion.div 
               key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group"
+              variants={itemVariants}
+              className="group relative pl-5 border-l-2 border-transparent hover:border-champagne-gold transition-all duration-500"
             >
-              <div className="text-champagne-gold mb-6 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
+              <div className="text-champagne-gold mb-6 transition-all duration-500 group-hover:scale-110 group-hover:translate-x-1">
                 {item.icon}
               </div>
               <h3 className="text-2xl font-bold mb-4 text-obsidian tracking-tight">{item.title}</h3>
@@ -93,26 +115,55 @@ export default function StandardPage() {
               </p>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </section>
 
       {/* Bottom Quote Section */}
       <section className="px-5 sm:px-6 py-16 sm:py-24 bg-alabaster border-y border-slate-gray/10">
-        <div className="max-w-4xl mx-auto text-center italic text-xl sm:text-2xl md:text-3xl font-extrabold text-obsidian/80 leading-normal">
-          &quot;In the world of Aether, there is no room for compromise. Expectations are not merely met; they are redefined.&quot;
-        </div>
+        <motion.div 
+          className="max-w-4xl mx-auto text-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          <motion.span
+            className="text-champagne-gold text-7xl font-serif leading-none block mb-4 select-none"
+            initial={{ opacity: 0, scale: 0.5 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            &ldquo;
+          </motion.span>
+          <p className="italic text-xl sm:text-2xl md:text-3xl font-bold text-obsidian/80 leading-relaxed">
+            In the world of Aether, there is no room for compromise. Expectations are not merely met; they are redefined.
+          </p>
+          <motion.span
+            className="text-champagne-gold text-7xl font-serif leading-none block mt-4 select-none"
+            initial={{ opacity: 0, scale: 0.5 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            &rdquo;
+          </motion.span>
+        </motion.div>
       </section>
 
-      {/* Footer (Simplified) */}
-      <footer className="bg-obsidian text-slate-gray py-12 text-center text-sm border-t border-slate-gray/20 mt-auto">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-pure-white font-bold text-xl tracking-tight mb-4 md:mb-0 lowercase">Aether.</p>
-          <div className="flex space-x-6">
-            <a href="#" className="hover:text-champagne-gold transition-colors text-xs uppercase tracking-widest font-technical">Privacy</a>
-            <a href="#" className="hover:text-gold transition-colors text-xs uppercase tracking-widest font-technical">Terms</a>
-            <a href="#" className="hover:text-gold transition-colors text-xs uppercase tracking-widest font-technical">Contact</a>
+      {/* Footer */}
+      <footer className="bg-obsidian text-slate-gray mt-auto">
+        <div className="h-px bg-gradient-to-r from-transparent via-champagne-gold/50 to-transparent" />
+        <div className="max-w-7xl mx-auto px-5 sm:px-6 py-12">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-pure-white font-extrabold text-2xl tracking-[0.2em]">AETHER</p>
+            <div className="flex space-x-6">
+              <a href="#" className="hover:text-champagne-gold transition-colors duration-300 text-xs uppercase tracking-widest font-technical">Privacy</a>
+              <a href="#" className="hover:text-champagne-gold transition-colors duration-300 text-xs uppercase tracking-widest font-technical">Terms</a>
+              <a href="#" className="hover:text-champagne-gold transition-colors duration-300 text-xs uppercase tracking-widest font-technical">Contact</a>
+            </div>
+            <p className="text-slate-gray/50 text-xs font-technical tracking-wider">© 2026 Aether Automotive.</p>
           </div>
-          <p className="mt-6 md:mt-0 opacity-50 font-technical tracking-wider">© 2026 Aether Automotive. All rights reserved.</p>
         </div>
       </footer>
     </main>
