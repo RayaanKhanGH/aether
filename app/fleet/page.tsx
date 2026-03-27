@@ -2,8 +2,8 @@
 
 import React, { useState, useMemo, useEffect } from "react";
 import Navigation from "../components/Navigation";
-import { Search, SlidersHorizontal, ChevronDown, CheckCircle, MapPin, X, ArrowRight, Zap, Star, Calendar, User, Mail, ShieldCheck, Car } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { Search, SlidersHorizontal, ChevronDown, CheckCircle, MapPin, X, ArrowRight, Zap, Star, Calendar, User, Mail, ShieldCheck, Car, Database } from "lucide-react";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import { VEHICLES } from "../data/vehicles";
 import { HoverAuraCard } from "../components/HoverAuraCard";
 
@@ -32,7 +32,7 @@ const SORT_OPTIONS = [
   { label: "Performance: High to Low", value: "hp-desc" }
 ];
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
 };
@@ -276,8 +276,13 @@ export default function FleetPage() {
               <HoverAuraCard className="bg-pure-white border border-obsidian/5 rounded-[2.5rem] p-6 h-full flex flex-col justify-between hover:shadow-2xl hover:border-champagne-gold/20 transition-all duration-700 cursor-pointer group">
                 <div className="space-y-6">
                   <div className="aspect-[16/11] bg-alabaster rounded-2xl flex flex-col items-center justify-center overflow-hidden border border-obsidian/5 relative shadow-inner group/thumb">
-                    <div className="absolute top-4 left-4 bg-pure-white/90 backdrop-blur-sm px-4 py-1.5 rounded-full text-[9px] font-black tracking-[0.2em] text-obsidian shadow-sm border border-obsidian/5 uppercase z-10">
-                      {vehicle.tier}
+                    <div className="absolute top-4 left-4 flex flex-col gap-2 z-10">
+                      <div className="bg-pure-white/90 backdrop-blur-sm px-4 py-1.5 rounded-full text-[9px] font-black tracking-[0.2em] text-obsidian shadow-sm border border-obsidian/5 uppercase">
+                        {vehicle.tier}
+                      </div>
+                      <div className="bg-obsidian/90 backdrop-blur-sm px-4 py-1.5 rounded-full text-[9px] font-black tracking-[0.2em] text-pure-white shadow-sm border border-white/5 uppercase flex items-center gap-2">
+                        <Database size={10} className="text-champagne-gold" /> {vehicle.availability} Units
+                      </div>
                     </div>
                     
                     <Car size={80} strokeWidth={0.5} className="text-obsidian opacity-[0.4] group-hover/thumb:text-champagne-gold group-hover/thumb:opacity-100 transition-all duration-700" />
@@ -363,9 +368,14 @@ export default function FleetPage() {
                         className="space-y-10 h-full flex flex-col"
                       >
                         <div className="space-y-4">
-                          <p className="text-[10px] font-black text-champagne-gold uppercase tracking-[0.4em] mb-1">{selectedVehicle.tier} COLLECTION</p>
+                          <div className="flex items-center gap-4">
+                            <p className="text-[10px] font-black text-champagne-gold uppercase tracking-[0.4em] mb-1">{selectedVehicle.tier} COLLECTION</p>
+                            <span className="h-px flex-1 bg-obsidian/5"></span>
+                            <div className="flex items-center gap-2 text-[10px] font-black text-obsidian/40 uppercase tracking-widest">
+                               <Database size={12} className="text-champagne-gold" /> {selectedVehicle.availability} Units Allocated
+                            </div>
+                          </div>
                           <h2 className="text-4xl sm:text-5xl lg:text-5xl font-heading font-black text-obsidian tracking-tighter leading-[0.9]">{selectedVehicle.name}</h2>
-                          <div className="h-px w-20 bg-champagne-gold/30"></div>
                           <p className="text-lg text-slate-gray/80 font-light leading-relaxed max-w-xl">
                             {selectedVehicle.desc}
                           </p>
